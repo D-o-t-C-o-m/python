@@ -1,4 +1,4 @@
-from player import HumanPlayer, RandomCPU
+from player import HumanPlayer, RandomComputerPlayer
 
 class TicTacToe:
     def __init__(self):
@@ -6,12 +6,13 @@ class TicTacToe:
         self.current_winner = None
 
     def print_board(self):
-        for row in [self.board[1*3:(i+1)*3] for i in range(3)]:
+        for row in [self.board[i*3:(i+1)*3] for i in range(3)]:
+        #for row in [self.board[1*3:(i+1) * 3] for i in range(3)]:
             print('| ' + ' | '.join(row) + ' |' )
 
     @staticmethod
     def print_board_nums():
-        number_board = [[str(i) for i in range (j*3, (j+1)*3)] for j in range(3)]
+        number_board = [[str(i) for i in range(j*3, (j+1)*3)] for j in range(3)]
         for row in number_board:
             print('| ' + ' | '.join(row) + ' |' )
 
@@ -56,36 +57,36 @@ class TicTacToe:
         
         return False
                 
-def play(game, x_player, o_player, print_game=True):
 
+def play(game, x_player, o_player, print_game=True):
 
     if print_game:
         game.print_board_nums()
 
     letter = 'X'
     while game.empty_squares():
-        if letter == 'o':
+        if letter == 'O':
             square = o_player.get_move(game)
         else:
             square = x_player.get_move(game)
-
         if game.make_move(square, letter):
+
             if print_game:
-                print(letter + f' Makes a move to square {square}')
+                print(letter + ' makes a move to square {}'.format(square))
                 game.print_board()
                 print('')
 
-        if game.current_winner:
-            if print_game:
-                print(letter + ' wins!')
-            return letter
+            if game.current_winner:
+                if print_game:
+                    print(letter + ' wins!')
+                return letter  # ends the loop and exits the game
+            letter = 'O' if letter == 'X' else 'X'  # switches player
 
-        letter = 'o' if letter == 'x' else 'x'
     if print_game:
-        print('Tie!')
+        print('It\'s a tie!')
 
 if __name__ == '__main__':
     x_player = HumanPlayer('x')
-    o_player = RandomCPU('o')
+    o_player = RandomComputerPlayer('O')
     t = TicTacToe()
     play(t, x_player, o_player, print_game=True)
