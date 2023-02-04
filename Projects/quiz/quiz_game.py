@@ -1,3 +1,5 @@
+#from this tutorial https://www.youtube.com/watch?v=DLn3jOsNRVE
+
 print("Welcome to the Computer Quiz!")
 
 playing = input("Do you want to play? (Yes / No): ")
